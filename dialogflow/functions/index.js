@@ -33,11 +33,14 @@ const STOP_MESSAGE = 'Goodbye!';
 const NO_CONNECTION_MESSAGE = 'I can\'t connect to YouTube right now, please try again later.';
 
 // Setup request handler
-exports.popularVideos = functions.https.onRequest((req, res) => {
+exports.popularVideos = handlerFn;
+
+
+const handlerFn = (req, res,next) => {
   const handler = new Handler(handlers);
   handler.run(req, res);
-});
-
+  next();
+}
 // Define new Handler class to reuse handlers defined to fulfill the Alexa skill
 class Handler {
   constructor (handlers) {
